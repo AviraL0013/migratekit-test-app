@@ -1,1 +1,1 @@
-stripe.paymentIntents.create({ amount: 1000 });
+stripe.charges.create({ amount: 1000 });
