@@ -1,0 +1,19 @@
+name: MigrateKit Apply
+
+on:
+  workflow_dispatch:
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run MigrateKit (apply)
+        uses: AviraL0013/migratekit-action@v0.1.0
+        with:
+          migration: stripe-charges
+          dry_run: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
