@@ -1,19 +1,24 @@
-name: Run MigrateKit
+name: MigrateKit Dry Run
 
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
-  migrate:
+  dry-run:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: AviraL0013/migratekit-action@main
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run MigrateKit (dry-run)
+        uses: AviraL0013/migratekit-action@v0.1.0
         with:
           migration: stripe-charges
+          dry_run: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify no git changes
+        run: |
+          git status
+          git diff --exit-code
